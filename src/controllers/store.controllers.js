@@ -73,6 +73,7 @@ const getOne = catchError(async (req, res) => {
       where: { isSold: false, isActive: true, expiresAt: { [Op.gt]: today } },
     },
     where: { id },
+    required: false,
   });
 
   if (!result) return res.sendStatus(404);
