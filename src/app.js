@@ -15,7 +15,11 @@ app.use(
     crossOriginResourcePolicy: false,
   })
 );
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173", // tu frontend local
+  })
+);
 
 app.use(router);
 app.get("/", (req, res) => {

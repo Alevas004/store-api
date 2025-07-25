@@ -91,16 +91,20 @@ const update = catchError(async (req, res) => {
 
   const order = await Order.findOne({ where: { id, userId } });
   if (!order)
-    return res.status(404).json({ error: "You don't have permission to access this order" });
+    return res
+      .status(404)
+      .json({ error: "You don't have permission to access this order" });
 
-  const result = await Order.update({ paymentMethod }, {
-    where: { id, userId },
-    returning: true,
-  });
+  const result = await Order.update(
+    { paymentMethod },
+    {
+      where: { id, userId },
+      returning: true,
+    }
+  );
 
   return res.json(result[1][0]);
 });
-
 
 module.exports = {
   getAll,

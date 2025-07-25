@@ -11,6 +11,17 @@ const getAll = catchError(async (req, res) => {
   return res.json(results);
 });
 
+const getMyProfile = catchError(async (req, res) => {
+  const id = req.user.id;
+
+  const results = await User.findOne({ where: { id } });
+  if (!results) {
+    return res.status(404).json({ mesage: "User not found" });
+  }
+
+  return res.json(results);
+});
+
 const create = catchError(async (req, res) => {
   const {
     id,
@@ -21,7 +32,7 @@ const create = catchError(async (req, res) => {
     gender,
     profileImage,
     role,
-    birthDay,
+    birthday,
     country,
     city,
     address,
@@ -40,7 +51,7 @@ const create = catchError(async (req, res) => {
     gender,
     profileImage,
     role,
-    birthDay,
+    birthday,
     country,
     city,
     address,
@@ -182,5 +193,6 @@ module.exports = {
   update,
   login,
   logout,
+  getMyProfile,
   confirmEmail,
 };

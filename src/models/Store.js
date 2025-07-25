@@ -60,11 +60,10 @@ const Store = sequelize.define("store", {
     defaultValue: "active",
   },
   // userId
- 
 });
- Store.prototype.toJSON = function () {
-      const values = Object.assign({}, this.get());
-      delete values.password;
-      return values;
-  }
+Store.prototype.toJSON = function () {
+  const values = Object.assign({}, this.get());
+  delete values.password;
+  return values;
+};
 module.exports = Store;

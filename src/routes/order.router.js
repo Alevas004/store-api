@@ -21,7 +21,7 @@ const orderRouter = express.Router();
 orderRouter
   .route("/orders")
   .get(protect, isAdmin, getAll)
-  .post(protect, isClient, create);
+  .post(protect, isClient, create) // button buy
 
 orderRouter
   .route("/orders/my-orders")
@@ -33,7 +33,7 @@ orderRouter
 
 orderRouter
   .route("/orders/:id")
-  .get(protect, isAdmin, getOne)
+  .get(protect, getOne)
   .delete(protect, isClientOrAdmin, remove)
   .put(protect, isClientOrAdmin, update);
 

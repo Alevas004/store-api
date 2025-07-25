@@ -17,11 +17,11 @@ const getActiveProducts = catchError(async (req, res) => {
 
   const activeProducts = await Product.findAll({
     include: Store,
-    where: {isActive: true, isSold: false, expiresAt: {[Op.gt]: today}}
-  })
+    where: { isActive: true, isSold: false, expiresAt: { [Op.gt]: today } },
+  });
 
   return res.json(activeProducts);
-})
+});
 
 const getMyProducts = catchError(async (req, res) => {
   const id = req.user.id;
@@ -51,7 +51,12 @@ const getSoldProducts = catchError(async (req, res) => {
   }
 
   const getMySoldProducts = await Product.findAll({
-    include: Order,
+    include: [
+      {
+        model: Order,
+        include: [User], // 👈 esto trae los datos del comprador
+      }
+    ] , 
     where: { storeId: hasOneStore.id, isSold: true },
   });
   return res.json(getMySoldProducts);
@@ -95,15 +100,17 @@ const create = catchError(async (req, res) => {
 
 const getOne = catchError(async (req, res) => {
   const { id } = req.params;
-  const result = await Product.findByPk(id);
+  const result = await Product.findOne({ include: Store, where: { id } });
   if (!result) return res.sendStatus(404);
   return res.json(result);
 });
 
 const remove = catchError(async (req, res) => {
   const { id } = req.params;
+  const product = await Product.findOne({ where: { id } });
+  if (!product) return res.status(404).json({ error: "Product not found" });
   await Product.destroy({ where: { id } });
-  return res.sendStatus(204);
+  return res.status(204).json({ message: "Product deleted successfully" });
 });
 
 const update = catchError(async (req, res) => {
@@ -124,5 +131,5 @@ module.exports = {
   update,
   getSoldProducts,
   getMyProducts,
-  getActiveProducts
+  getActiveProducts,
 };

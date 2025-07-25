@@ -38,7 +38,7 @@ const User = sequelize.define("user", {
     type: DataTypes.STRING, //ENUM("client", "store", "admin")
     allowNull: false,
   },
-  birthDay: {
+  birthday: {
     type: DataTypes.DATEONLY,
     allowNull: false,
   },
@@ -70,8 +70,8 @@ const User = sequelize.define("user", {
 // orderId
 
 User.prototype.toJSON = function () {
-    const values = Object.assign({}, this.get());
-    delete values.password;
-    return values;
-}
+  const values = Object.assign({}, this.get());
+  delete values.password;
+  return values;
+};
 module.exports = User;

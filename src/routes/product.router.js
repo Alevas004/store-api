@@ -14,10 +14,19 @@ const { isStore, isAdmin } = require("../middlewares/roleMiddleware");
 
 const productRouter = express.Router();
 
-productRouter.route("/products").get(protect, isAdmin, getAll).post(protect, isStore, create);
+productRouter
+  .route("/products")
+  .get(protect, isAdmin, getAll)
+  .post(protect, isStore, create);
 productRouter.route("/products/sold").get(protect, isStore, getSoldProducts);
-productRouter.route("/products/my-products").get(protect, isStore, getMyProducts);
-productRouter.route("/products/available").get(getActiveProducts)
-productRouter.route("/products/:id").get(getOne).delete(protect, isStore, remove).put(protect, isStore, update);
+productRouter
+  .route("/products/my-products")
+  .get(protect, isStore, getMyProducts);
+productRouter.route("/products/available").get(getActiveProducts);
+productRouter
+  .route("/products/:id")
+  .get(protect, getOne)
+  .delete(protect, isStore, remove) //button
+  .put(protect, isStore, update); // button
 
 module.exports = productRouter;

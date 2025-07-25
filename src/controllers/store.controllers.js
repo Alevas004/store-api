@@ -99,6 +99,7 @@ const update = catchError(async (req, res) => {
     image,
     phone,
     email,
+    isVerified
   } = req.body;
   const { id } = req.params;
   const capturedId = req.user.id;
@@ -123,6 +124,7 @@ const update = catchError(async (req, res) => {
       image,
       phone,
       email,
+      isVerified
     },
     {
       where: { id },
