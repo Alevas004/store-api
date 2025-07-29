@@ -24,7 +24,7 @@ app.use(
 );
 app.use(
   cors({
-    origin: "http://localhost:5173", // tu frontend local
+    origin: "https://looply-by-ale.netlify.app" // tu frontend local
   })
 );
 
