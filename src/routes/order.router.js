@@ -1,6 +1,5 @@
 const {
   getAll,
-  create,
   getOne,
   remove,
   update,
@@ -15,13 +14,13 @@ const {
   isClientOrAdmin,
   isStore,
 } = require("../middlewares/roleMiddleware");
+const { stripeWebhook } = require("../controllers/stripe.controllers");
 
 const orderRouter = express.Router();
 
 orderRouter
   .route("/orders")
   .get(protect, isAdmin, getAll)
-  .post(protect, isClient, create) // button buy
 
 orderRouter
   .route("/orders/my-orders")

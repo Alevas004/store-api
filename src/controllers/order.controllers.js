@@ -36,30 +36,30 @@ const getMyStoreOrders = catchError(async (req, res) => {
   res.status(200).json(getOrders);
 });
 
-const create = catchError(async (req, res) => {
-  const { paymentMethod, productId } = req.body;
-  const id = req.user.id;
+// const create = catchError(async (req, res) => {
+//   const { paymentMethod, productId } = req.body;
+//   const id = req.user.id;
 
-  const product = await Product.findByPk(productId);
-  if (!product) return res.status(404).json({ error: "Product not found" });
+//   const product = await Product.findByPk(productId);
+//   if (!product) return res.status(404).json({ error: "Product not found" });
 
-  if (product.isSold) {
-    return res.status(400).json({ error: "Product is already sold" });
-  }
+//   if (product.isSold) {
+//     return res.status(400).json({ error: "Product is already sold" });
+//   }
 
-  const result = await Order.create({
-    userId: id,
-    productId,
-    storeId: product.storeId,
-    paymentMethod,
-    paymentStatus: "pending",
-    total: product.price,
-  });
+//   const result = await Order.create({
+//     userId: id,
+//     productId,
+//     storeId: product.storeId,
+//     paymentMethod,
+//     paymentStatus: "pending",
+//     total: product.price,
+//   });
 
-  product.isSold = true;
-  await product.save();
-  return res.status(201).json(result);
-});
+//   product.isSold = true;
+//   await product.save();
+//   return res.status(201).json(result);
+// });
 
 const getOne = catchError(async (req, res) => {
   const { id } = req.params;
@@ -108,7 +108,7 @@ const update = catchError(async (req, res) => {
 
 module.exports = {
   getAll,
-  create,
+  // create,
   getOne,
   remove,
   update,

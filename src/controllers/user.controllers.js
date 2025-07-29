@@ -157,11 +157,11 @@ const update = catchError(async (req, res) => {
   const { id } = req.params;
   const userId = req.user.id;
 
-  if (userId !== id) {
-    return res
-      .status(403)
-      .json({ message: "You can only update your own profile" });
-  }
+  // if (userId !== id) {
+  //   return res
+  //     .status(403)
+  //     .json({ message: "You can only update your own profile" });
+  // }
 
   const result = await User.update(
     {

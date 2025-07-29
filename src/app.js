@@ -3,10 +3,17 @@ const helmet = require("helmet");
 const cors = require("cors");
 const router = require("./routes");
 const errorHandler = require("./utils/errorHandler");
+const { stripeWebhook } = require("./controllers/stripe.controllers");
 require("dotenv").config();
 require("./models/index");
 // Esta es nuestra aplicación
 const app = express();
+
+app.post(
+  "/api/stripe/webhook",
+  express.raw({ type: "application/json" }),
+  stripeWebhook
+);
 
 // Middlewares
 app.use(express.json());
