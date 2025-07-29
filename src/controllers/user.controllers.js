@@ -3,8 +3,9 @@ const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const generateToken = require("../utils/generateTokens");
 const jwt = require("jsonwebtoken");
-
 const sendEmail = require("../utils/sendEmail");
+
+const BASE_URL = "https://looply-api-byq3.onrender.com";
 
 const getAll = catchError(async (req, res) => {
   const results = await User.findAll();
@@ -63,7 +64,7 @@ const create = catchError(async (req, res) => {
     expiresIn: "5h",
   });
 
-  const confirmationLink = `http://localhost:8080/users/confirm-email/${token}`;
+  const confirmationLink = `${BASE_URL}/users/confirm-email/${token}`;
 
   // Send confirmation email
   await sendEmail({
